@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.indevstudio.stbtest.MainActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:orientation="vertical">
+            -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonTest1"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest1"
+                android:text="1. Детальная программно-аппаратная информация по STB (*)"
+                android:textAlignment="textStart">
+
+                <requestFocus />
+            </Button>
+
+            <Button
+                android:id="@+id/buttonTest2"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest2"
+                android:text="2. Проверка сетевых подключений"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest3"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest3"
+                android:text="3. Работа с интерфейсом Wi-Fi"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest4"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest4"
+                android:text="4. Работа с интерфейсом Bluetooth"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest5"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest5"
+                android:text="5. Воспроизведение контента (JSON-плейлист) (*)"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest51"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest51"
+                android:text="5. Воспроизведение контента (выбор файла) (*)"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest6"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest6"
+                android:text="6. Аппаратное декодирование видео"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest7"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest7"
+                android:text="7. Демонстрация работы videomark"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest8"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest8"
+                android:text="8. HDMI различные разрешения, пропорции и масштабирование видео"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest9"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest9"
+                android:text="9. HDMI CEC"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest10"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest10"
+                android:text="10. Работа Пульта"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest11"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest11"
+                android:text="11. LED индикатор (*)"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
