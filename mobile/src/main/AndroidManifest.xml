@@ -13,9 +13,9 @@
     <application
         android:name=".exoplayer.DemoApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/sw_logo_icon"
+        android:icon="@mipmap/if_demo_6012"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/sw_logo_icon"
+        android:roundIcon="@mipmap/if_demo_6012"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">

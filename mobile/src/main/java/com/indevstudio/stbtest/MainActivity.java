@@ -63,6 +63,26 @@ public class MainActivity extends AppCompatActivity {
         fileDialog.show();
     }
 
+    public void onTest52(View v) {
+        final OpenFileDialog fileDialog = new OpenFileDialog(this);
+        fileDialog.setFilter(".*\\.json");
+        fileDialog.setOpenDialogListener(new OpenFileDialog.OpenDialogListener() {
+            @Override
+            public void OnSelectedFile(String fileName) {
+                // Toast.makeText(getApplicationContext(), fileName, Toast.LENGTH_LONG).show();
+                fileDialog.close();
+
+                String uri = fileName;
+                String extention = uri.substring(uri.lastIndexOf(".") + 1, uri.length());
+
+                Log.d("MainActivity", "Uri = " + uri + ", Ext = " + extention);
+
+                playJson(uri);
+            }
+        });
+        fileDialog.show();
+    }
+
     public void onTest6(View v) {
     }
 
@@ -80,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onTest11(View v) {
         Intent intent = new Intent(this, LedActivity.class);
+        startActivity(intent);
+    }
+
+    void playJson(String uri) {
+        Intent intent = new Intent(this, SampleChooserActivity.class);
+        intent.setData(Uri.parse(uri));
         startActivity(intent);
     }
 

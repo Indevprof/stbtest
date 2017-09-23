@@ -22,7 +22,7 @@ public class GetHswInfo {
     /**Android can get ModelName by import android.os.Build; and read Build.MODEL or SystemProperties.get(ro.product.model) in Java file.
      * Please refer to packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java
      * If you want to get it from shell, please run getprop ro.product.model or refer to the function below.**/
-    public String getModelName() throws IOException {
+    public static String getModelName() throws IOException {
         FileReader reader = new FileReader("/system/build.prop");
         BufferedReader br = new BufferedReader(reader);
 
@@ -46,7 +46,7 @@ public class GetHswInfo {
      * sync
      * reboot
      **/
-    public String getSnNumber() {
+    public static String getSnNumber() {
         String value = null;
 
         try {
@@ -62,7 +62,7 @@ public class GetHswInfo {
 
     /**Wi-Fi MAC address is /sys/class/net/wlan0/address
      * Plesae enable Wi-Fi before get Wi-Fi MAC address**/
-    public String getWifiMac() throws IOException {
+    public static String getWifiMac() throws IOException {
         FileReader reader = new FileReader("/sys/class/net/wlan0/address");
         BufferedReader br = new BufferedReader(reader);
 
@@ -80,7 +80,7 @@ public class GetHswInfo {
      * echo YO:UR:MA:CA:DD:RS > /sys/class/unifykeys/write
      * sync
      * reboot**/
-    public String getEthMac() throws IOException {
+    public static String getEthMac() throws IOException {
         FileReader reader = new FileReader("/sys/class/net/eth0/address");
         BufferedReader br = new BufferedReader(reader);
 
@@ -93,7 +93,7 @@ public class GetHswInfo {
     }
 
     /** Temperature is /sys/class/thermal/thermal_zone0/temp**/
-    public float getCPUTemp() throws IOException {
+    public static float getCpuTemp() throws IOException {
         FileReader reader = new FileReader("/sys/class/thermal/thermal_zone0/temp");
         BufferedReader br = new BufferedReader(reader);
 
@@ -108,7 +108,7 @@ public class GetHswInfo {
 
     /**You can also refer to APIs that Settings -> Storage uses**/
     @SuppressLint("NewApi")
-    public Long getFlashTotalSize() {
+    public static Long getFlashTotalSize() {
         File path = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(path.getPath());
 
@@ -120,7 +120,7 @@ public class GetHswInfo {
 
     /**You can also refer to APIs that Settings -> Storage uses**/
     @SuppressLint("NewApi")
-    public Long getFlashAvailableSize() {
+    public static Long getFlashAvailableSize() {
         File path = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(path.getPath());
 
@@ -131,7 +131,7 @@ public class GetHswInfo {
     }
 
     /**You can also refer to APIs that Settings -> Memory uses**/
-    public Long getRamTotalSize() throws IOException {
+    public static Long getRamTotalSize() throws IOException {
         FileReader reader = new FileReader("/proc/meminfo");
         BufferedReader br = new BufferedReader(reader);
 
@@ -153,7 +153,7 @@ public class GetHswInfo {
     }
 
     /**You can also refer to APIs that Settings -> Memory uses**/
-    public Long getRamAvailableSize() throws IOException {
+    public static Long getRamAvailableSize() throws IOException {
         FileReader reader = new FileReader("/proc/meminfo");
         BufferedReader br = new BufferedReader(reader);
 
@@ -175,7 +175,7 @@ public class GetHswInfo {
     }
 
     /**You can also refer to APIs that Settings -> About media box uses**/
-    public String getKernelVersion() throws IOException {
+    public static String getKernelVersion() throws IOException {
         FileReader reader = new FileReader("/proc/version");
         BufferedReader br = new BufferedReader(reader);
 
@@ -203,7 +203,7 @@ public class GetHswInfo {
     }
 
     /**You can also refer to APIs that Settings -> About media box uses**/
-    public String getAndroidVersion() throws IOException {
+    public static String getAndroidVersion() throws IOException {
         FileReader reader = new FileReader("/system/build.prop");
         BufferedReader br = new BufferedReader(reader);
 
@@ -220,4 +220,111 @@ public class GetHswInfo {
         return value.replace("\r\n", "").replace("\n", "");
     }
 
+
+    public static double getCpuUsage() throws IOException, InterruptedException {
+        FileReader reader = new FileReader("/proc/stat");
+        BufferedReader br = new BufferedReader(reader);
+
+        long all1 = 0;
+        long idle1 = 0;
+        long all2 = 0;
+        long idle2 = 0;
+
+        String str = br.readLine();
+        StringTokenizer stk = new StringTokenizer(str);
+        stk.nextToken();
+
+        for (int i = 0; i < 7; i++) {
+            if (i == 3) {
+                idle1 = Long.parseLong(stk.nextToken());
+                all1 += idle1;
+
+                continue;
+            }
+
+            all1 += Long.parseLong(stk.nextToken());
+        }
+
+        br.close();
+        reader.close();
+
+        Thread.sleep(100);
+
+        reader = new FileReader("/proc/stat");
+        br = new BufferedReader(reader);
+
+        str = br.readLine();
+        stk = new StringTokenizer(str);
+        stk.nextToken();
+
+        for (int i = 0; i < 7; i++) {
+            if (i == 3) {
+                idle2 = Long.parseLong(stk.nextToken());
+                all2 += idle2;
+
+                continue;
+            }
+
+            all2 += Long.parseLong(stk.nextToken());
+        }
+
+        br.close();
+        reader.close();
+
+        return 100.0 * (all2 - all1 - (idle2 - idle1)) / (all2 - all1);
+    }
+
+
+    public static Long getRamTotleSize() throws IOException {
+        FileReader reader = new FileReader("/proc/meminfo");
+        BufferedReader br = new BufferedReader(reader);
+
+        long total = 0;
+        String str = null;
+
+        while ((str = br.readLine()) != null)
+            if (str.contains("MemTotal:")) {
+                StringTokenizer stk = new StringTokenizer(str);
+                stk.nextToken();
+                total = Long.parseLong(stk.nextToken());
+            }
+
+
+        br.close();
+        reader.close();
+
+        return total * 1024;
+    }
+
+    public static String formatSize( long size )
+    {
+        String suffix = null;
+
+        if (size >= 1024)
+        {
+            suffix = " КБ";
+            size /= 1024;
+            if (size >= 1024)
+            {
+                suffix = " МБ";
+                size /= 1024;
+                if (size >= 1024)
+                {
+                    suffix = " ГБ";
+                    size /= 1024;
+                }
+            }
+        }
+
+        StringBuilder resultBuffer = new StringBuilder(Long.toString(size));
+
+        int commaOffset = resultBuffer.length() - 3;
+        while (commaOffset > 0) {
+            resultBuffer.insert(commaOffset, ',');
+            commaOffset -= 3;
+        }
+
+        if (suffix != null) resultBuffer.append(suffix);
+        return resultBuffer.toString();
+    }
 }

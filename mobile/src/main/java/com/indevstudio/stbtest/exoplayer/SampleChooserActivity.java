@@ -313,11 +313,11 @@ public class SampleChooserActivity extends AppCompatActivity {
                                  View convertView, ViewGroup parent) {
             View view = convertView;
             if (view == null) {
-                view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent,
-                        false);
+                view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false);
                 UiHelper.setTextViewStyle(this.context, (TextView) view);
+                view.setPadding(30,0,0,0);
             }
-            ((TextView) view).setText(getChild(groupPosition, childPosition).name);
+            ((TextView) view).setText("          " + getChild(groupPosition, childPosition).name);
             return view;
         }
 

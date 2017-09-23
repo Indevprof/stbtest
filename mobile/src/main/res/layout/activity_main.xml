@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onTest5"
-                android:text="5. Воспроизведение контента (JSON-плейлист) (*)"
+                android:text="5.1. Воспроизведение контента (JSON-плейлист) (*)"
                 android:textAlignment="textStart" />
 
             <Button
@@ -83,7 +83,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onTest51"
-                android:text="5. Воспроизведение контента (выбор файла) (*)"
+                android:text="5.2. Воспроизведение контента (выбор файла) (*)"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/buttonTest52"
+                style="@style/AppTheme.Button.m10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTest52"
+                android:text="5.3. Воспроизведение контента (выбор JSON-плейлиста на диске) (*)"
                 android:textAlignment="textStart" />
 
             <Button

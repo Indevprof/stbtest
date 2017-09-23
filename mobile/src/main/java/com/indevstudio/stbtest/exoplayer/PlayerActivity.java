@@ -67,7 +67,6 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.DebugTextViewHelper;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -115,6 +114,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     private EventLogger eventLogger;
     private SimpleExoPlayerView simpleExoPlayerView;
     private LinearLayout debugRootView;
+    private LinearLayout debugInfoView;
     private TextView debugTextView;
     private Button retryButton;
 
@@ -153,6 +153,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         View rootView = findViewById(R.id.root);
         rootView.setOnClickListener(this);
         debugRootView = (LinearLayout) findViewById(R.id.controls_root);
+        debugInfoView = (LinearLayout) findViewById(R.id.debug_info_view);
         debugTextView = (TextView) findViewById(R.id.debug_text_view);
         retryButton = (Button) findViewById(R.id.retry_button);
         retryButton.setOnClickListener(this);
@@ -248,6 +249,18 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     public void onVisibilityChange(int visibility) {
         debugRootView.setVisibility(visibility);
     }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_1:
+                debugInfoView.setVisibility(debugInfoView.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                return true;
+            default:
+                return super.onKeyUp(keyCode, event);
+        }
+    }
+
 
     // Internal methods
 
