@@ -26,7 +26,18 @@ public class SysInfoActivity extends AppCompatActivity {
 
         ArrayList<SysInfoItem> items = new ArrayList<>();
 
+        GetNetInfo netInfo = new GetNetInfo();
+
         try {
+            items.add(new SysInfoItem("Тест", "header"));
+            items.add(new SysInfoItem("Uptime", GetHswInfo.getUpTime()));
+            items.add(new SysInfoItem("Ethernet link speed", GetHswInfo.getEthernetLinkSpeed()));
+            items.add(new SysInfoItem("Hdcp mode", GetHswInfo.getHdcpMode()));
+            items.add(new SysInfoItem("Hdcp version", GetHswInfo.getHdcpVer()));
+            items.add(new SysInfoItem("RX", netInfo.RX));
+            items.add(new SysInfoItem("Display mode", GetHswInfo.getDisplayMode()));
+            items.add(new SysInfoItem("Hdmi authenticated", GetHswInfo.getHdmiAuthenticated()));
+
             items.add(new SysInfoItem("Основные", "header"));
             items.add(new SysInfoItem("Название модели", GetHswInfo.getModelName().toUpperCase()));
             items.add(new SysInfoItem("Аппаратная ревизия", ""));
@@ -35,7 +46,9 @@ public class SysInfoActivity extends AppCompatActivity {
             items.add(new SysInfoItem("HDCP ключ", ""));
 
             items.add(new SysInfoItem("Аппаратные компоненты платы", "header"));
-            items.add(new SysInfoItem("SoC", ""));
+            items.add(new SysInfoItem("Процессор", GetHswInfo.getCpuName()));
+            items.add(new SysInfoItem("Модель процессора", GetHswInfo.getCpuModelAndSoc()));
+            items.add(new SysInfoItem("SN процессора", GetHswInfo.getCpuSerial()));
             items.add(new SysInfoItem("Flash", String.format("Total - %s, Available - %s", GetHswInfo.formatSize(GetHswInfo.getFlashTotalSize()), GetHswInfo.formatSize(GetHswInfo.getFlashAvailableSize()))));
             items.add(new SysInfoItem("RAM", String.format("Total - %s, Available - %s", GetHswInfo.formatSize(GetHswInfo.getRamTotalSize()), GetHswInfo.formatSize(GetHswInfo.getRamAvailableSize()))));
             items.add(new SysInfoItem("Ethernet", GetHswInfo.getEthMac().toUpperCase()));
@@ -51,6 +64,8 @@ public class SysInfoActivity extends AppCompatActivity {
             items.add(new SysInfoItem("Verimatrix clients (IPTV and OTT)", ""));
             items.add(new SysInfoItem("Widevine library", ""));
             items.add(new SysInfoItem("reference software", ""));
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

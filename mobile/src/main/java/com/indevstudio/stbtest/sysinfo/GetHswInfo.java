@@ -8,20 +8,24 @@ package com.indevstudio.stbtest.sysinfo;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.StringTokenizer;
 
 
 public class GetHswInfo {
 
-    /**Android can get ModelName by import android.os.Build; and read Build.MODEL or SystemProperties.get(ro.product.model) in Java file.
+    /**
+     * Android can get ModelName by import android.os.Build; and read Build.MODEL or SystemProperties.get(ro.product.model) in Java file.
      * Please refer to packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java
-     * If you want to get it from shell, please run getprop ro.product.model or refer to the function below.**/
+     * If you want to get it from shell, please run getprop ro.product.model or refer to the function below.
+     **/
     public static String getModelName() throws IOException {
         FileReader reader = new FileReader("/system/build.prop");
         BufferedReader br = new BufferedReader(reader);
@@ -39,7 +43,8 @@ public class GetHswInfo {
         return value.replace("\r\n", "").replace("\n", "");
     }
 
-    /**It is recommended to get SN by import android.os.SystemProperties; and SystemProperties.get(ro.serialno) in Java file.
+    /**
+     * It is recommended to get SN by import android.os.SystemProperties; and SystemProperties.get(ro.serialno) in Java file.
      * If you want to program another serial number, please follow commands below:
      * echo usid > /sys/class/unifykeys/name
      * echo YOURSERIALNUMBER > /sys/class/unifykeys/write
@@ -60,8 +65,10 @@ public class GetHswInfo {
         return value;
     }
 
-    /**Wi-Fi MAC address is /sys/class/net/wlan0/address
-     * Plesae enable Wi-Fi before get Wi-Fi MAC address**/
+    /**
+     * Wi-Fi MAC address is /sys/class/net/wlan0/address
+     * Plesae enable Wi-Fi before get Wi-Fi MAC address
+     **/
     public static String getWifiMac() throws IOException {
         FileReader reader = new FileReader("/sys/class/net/wlan0/address");
         BufferedReader br = new BufferedReader(reader);
@@ -74,12 +81,14 @@ public class GetHswInfo {
         return value;
     }
 
-    /**Ethernet is /sys/class/net/eth0/address
+    /**
+     * Ethernet is /sys/class/net/eth0/address
      * If you want to program another Ethernet MAC address, please follow commands below:
      * echo mac > /sys/class/unifykeys/name
      * echo YO:UR:MA:CA:DD:RS > /sys/class/unifykeys/write
      * sync
-     * reboot**/
+     * reboot
+     **/
     public static String getEthMac() throws IOException {
         FileReader reader = new FileReader("/sys/class/net/eth0/address");
         BufferedReader br = new BufferedReader(reader);
@@ -92,7 +101,9 @@ public class GetHswInfo {
         return value;
     }
 
-    /** Temperature is /sys/class/thermal/thermal_zone0/temp**/
+    /**
+     * Temperature is /sys/class/thermal/thermal_zone0/temp
+     **/
     public static float getCpuTemp() throws IOException {
         FileReader reader = new FileReader("/sys/class/thermal/thermal_zone0/temp");
         BufferedReader br = new BufferedReader(reader);
@@ -106,7 +117,9 @@ public class GetHswInfo {
         return value / 1000;
     }
 
-    /**You can also refer to APIs that Settings -> Storage uses**/
+    /**
+     * You can also refer to APIs that Settings -> Storage uses
+     **/
     @SuppressLint("NewApi")
     public static Long getFlashTotalSize() {
         File path = Environment.getExternalStorageDirectory();
@@ -118,7 +131,9 @@ public class GetHswInfo {
         return blockSize * totalBlocks;
     }
 
-    /**You can also refer to APIs that Settings -> Storage uses**/
+    /**
+     * You can also refer to APIs that Settings -> Storage uses
+     **/
     @SuppressLint("NewApi")
     public static Long getFlashAvailableSize() {
         File path = Environment.getExternalStorageDirectory();
@@ -130,7 +145,9 @@ public class GetHswInfo {
         return blockSize * availableBlocks;
     }
 
-    /**You can also refer to APIs that Settings -> Memory uses**/
+    /**
+     * You can also refer to APIs that Settings -> Memory uses
+     **/
     public static Long getRamTotalSize() throws IOException {
         FileReader reader = new FileReader("/proc/meminfo");
         BufferedReader br = new BufferedReader(reader);
@@ -152,7 +169,9 @@ public class GetHswInfo {
         return total * 1024;
     }
 
-    /**You can also refer to APIs that Settings -> Memory uses**/
+    /**
+     * You can also refer to APIs that Settings -> Memory uses
+     **/
     public static Long getRamAvailableSize() throws IOException {
         FileReader reader = new FileReader("/proc/meminfo");
         BufferedReader br = new BufferedReader(reader);
@@ -174,7 +193,73 @@ public class GetHswInfo {
         return ava * 1024;
     }
 
-    /**You can also refer to APIs that Settings -> About media box uses**/
+    public static String getCpuName() throws IOException {
+        FileReader reader = new FileReader("/proc/cpuinfo");
+        BufferedReader br = new BufferedReader(reader);
+
+        String result = "";
+        String str = null;
+
+        while ((str = br.readLine()) != null)
+            if (str.contains("Processor")) {
+                StringTokenizer stk = new StringTokenizer(str, ":");
+                stk.nextToken();
+                result = stk.nextToken().trim();
+            }
+
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+    public static String getCpuModelAndSoc() throws IOException {
+        FileReader reader = new FileReader("/proc/cpuinfo");
+        BufferedReader br = new BufferedReader(reader);
+
+        String result = "";
+        String str = null;
+
+        while ((str = br.readLine()) != null)
+            if (str.contains("Hardware")) {
+                StringTokenizer stk = new StringTokenizer(str, ":");
+                stk.nextToken();
+                result = stk.nextToken().trim();
+            }
+
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+    public static String getCpuSerial() throws IOException {
+        FileReader reader = new FileReader("/proc/cpuinfo");
+        BufferedReader br = new BufferedReader(reader);
+
+        String result = "";
+        String str = null;
+
+        while ((str = br.readLine()) != null)
+            if (str.contains("Serial")) {
+                StringTokenizer stk = new StringTokenizer(str, ":");
+                stk.nextToken();
+                result = stk.nextToken().trim();
+            }
+
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+
+    /**
+     * You can also refer to APIs that Settings -> About media box uses
+     **/
     public static String getKernelVersion() throws IOException {
         FileReader reader = new FileReader("/proc/version");
         BufferedReader br = new BufferedReader(reader);
@@ -202,7 +287,9 @@ public class GetHswInfo {
         return value;
     }
 
-    /**You can also refer to APIs that Settings -> About media box uses**/
+    /**
+     * You can also refer to APIs that Settings -> About media box uses
+     **/
     public static String getAndroidVersion() throws IOException {
         FileReader reader = new FileReader("/system/build.prop");
         BufferedReader br = new BufferedReader(reader);
@@ -296,20 +383,16 @@ public class GetHswInfo {
         return total * 1024;
     }
 
-    public static String formatSize( long size )
-    {
+    public static String formatSize(long size) {
         String suffix = null;
 
-        if (size >= 1024)
-        {
+        if (size >= 1024) {
             suffix = " КБ";
             size /= 1024;
-            if (size >= 1024)
-            {
+            if (size >= 1024) {
                 suffix = " МБ";
                 size /= 1024;
-                if (size >= 1024)
-                {
+                if (size >= 1024) {
                     suffix = " ГБ";
                     size /= 1024;
                 }
@@ -327,4 +410,108 @@ public class GetHswInfo {
         if (suffix != null) resultBuffer.append(suffix);
         return resultBuffer.toString();
     }
+
+
+    public static String getUpTime() throws IOException {
+        String result = "";
+
+        String[] command = {"uptime"};
+        Process process = Runtime.getRuntime().exec(command);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String s;
+        while ((s = reader.readLine()) != null) {
+            Log.d("GetHswInfo", "uptime output: " + s);
+            result += s + " ";
+        }
+
+        return result;
+    }
+
+    public static String getHdcpMode() throws IOException {
+        String result = "";
+
+        FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/hdcp_mode");
+        BufferedReader br = new BufferedReader(reader);
+
+        String s = null;
+
+        while ((s = br.readLine()) != null)
+            result += s + " ";
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+    public static String getHdcpVer() throws IOException {
+        String result = "";
+
+        FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/hdcp_ver");
+        BufferedReader br = new BufferedReader(reader);
+
+        String s = null;
+
+        while ((s = br.readLine()) != null)
+            result += s + " ";
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+    public static String getEthernetLinkSpeed() throws IOException {
+        String result = "";
+
+        FileReader reader = new FileReader("/sys/class/ethernet/linkspeed");
+        BufferedReader br = new BufferedReader(reader);
+
+        String s = null;
+
+        while ((s = br.readLine()) != null)
+            result += s + " ";
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+    public static String getDisplayMode() throws IOException {
+        String result = "";
+
+        FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/disp_cap");
+        BufferedReader br = new BufferedReader(reader);
+
+        String s = null;
+
+        while ((s = br.readLine()) != null) {
+            Log.d("GetHswInfo", "display mode: " + s);
+            result += s + " ";
+        }
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
+    public static String getHdmiAuthenticated() throws IOException {
+        String result = "";
+
+        FileReader reader = new FileReader("/sys/module/hdmitx20/parameters/hdmi_authenticated");
+        BufferedReader br = new BufferedReader(reader);
+
+        String s = null;
+
+        while ((s = br.readLine()) != null)
+            result += s + " ";
+
+        br.close();
+        reader.close();
+
+        return result;
+    }
+
 }
