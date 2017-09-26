@@ -6,12 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.indevstudio.stbtest.sysinfo.SysInfoActivity">
 
-    <ListView
-        android:id="@+id/listView"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/headerListView"
+            android:background="@drawable/border_right"
+            android:paddingRight="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"/>
+
+        <ListView
+            android:id="@+id/listView"
+            android:background="@color/colorLightGray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"/>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

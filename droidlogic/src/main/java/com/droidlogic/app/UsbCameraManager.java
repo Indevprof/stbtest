@@ -1,7 +1,5 @@
 package com.droidlogic.app;
 
-import java.io.File;
-
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,6 +14,8 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.util.Log;
+
+import java.io.File;
 
 public class UsbCameraManager {
     private static final String TAG             = "UsbCameraManager";

@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -23,25 +23,32 @@
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
     -->
 
-    <style name="AppTheme.Button">
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Borderless">
+        <!--
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">30dp</item>
-        <item name="android:paddingRight">30dp</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
+
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:maxLines">1</item>
+        -->
 
         <item name="android:background">@drawable/button_background</item>
+        <!--
         <item name="android:textColor">@color/button_textcolor</item>
+        -->
     </style>
 
     <style name="AppTheme.Button.m10" parent="AppTheme.Button">
+        <!--
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+        -->
     </style>
 
     <style name="AppTheme.Button.m10.Primary" parent="AppTheme.Button.m10">

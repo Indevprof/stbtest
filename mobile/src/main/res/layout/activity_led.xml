@@ -6,65 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.indevstudio.stbtest.led.LedActivity">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            style="@style/AppTheme.Button.m10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onOnG"
-            android:text="Зеленый"
-            android:textAlignment="textStart"></Button>
-
-        <Button
-            style="@style/AppTheme.Button.m10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onOnR"
-            android:text="Красный"
-            android:textAlignment="textStart" />
-
-        <Button
-            style="@style/AppTheme.Button.m10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onBlinkG"
-            android:text="Мигание зеленый"
-            android:textAlignment="textStart" />
-
-        <Button
-            style="@style/AppTheme.Button.m10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onBlinkR"
-            android:text="Мигание красный"
-            android:textAlignment="textStart" />
-
-        <Button
-            style="@style/AppTheme.Button.m10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onBlinkRG"
-            android:text="Мигание зеленый-красный"
-            android:textAlignment="textStart" />
-
-        <Button
-            style="@style/AppTheme.Button.m10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onOff"
-            android:text="Выключен"
-            android:textAlignment="textStart" />
-
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

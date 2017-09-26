@@ -26,21 +26,28 @@ public class GetHswInfo {
      * Please refer to packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java
      * If you want to get it from shell, please run getprop ro.product.model or refer to the function below.
      **/
-    public static String getModelName() throws IOException {
-        FileReader reader = new FileReader("/system/build.prop");
-        BufferedReader br = new BufferedReader(reader);
+    public static String getModelName() {
+        String result = "";
 
-        String str = null;
-        String value = null;
+        try {
+            FileReader reader = new FileReader("/system/build.prop");
+            BufferedReader br = new BufferedReader(reader);
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("ro.product.model"))
-                value = str.substring(17);
+            String str = null;
 
-        br.close();
-        reader.close();
+            while ((str = br.readLine()) != null)
+                if (str.contains("ro.product.model"))
+                    result = str.substring(17);
 
-        return value.replace("\r\n", "").replace("\n", "");
+            br.close();
+            reader.close();
+
+            result = result.replace("\r\n", "").replace("\n", "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
@@ -52,33 +59,39 @@ public class GetHswInfo {
      * reboot
      **/
     public static String getSnNumber() {
-        String value = null;
+        String result = null;
 
         try {
             Class<?> c = Class.forName("android.os.SystemProperties");
             Method get = c.getMethod("get", String.class);
-            value = (String) get.invoke(c, "ro.serialno");
+            result = (String) get.invoke(c, "ro.serialno");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return value;
+        return result;
     }
 
     /**
      * Wi-Fi MAC address is /sys/class/net/wlan0/address
      * Plesae enable Wi-Fi before get Wi-Fi MAC address
      **/
-    public static String getWifiMac() throws IOException {
-        FileReader reader = new FileReader("/sys/class/net/wlan0/address");
-        BufferedReader br = new BufferedReader(reader);
+    public static String getWifiMac() {
+        String result = "";
 
-        String value = br.readLine().replace("\r\n", "").replace("\n", "");
+        try {
+            FileReader reader = new FileReader("/sys/class/net/wlan0/address");
+            BufferedReader br = new BufferedReader(reader);
 
-        br.close();
-        reader.close();
+            result = br.readLine().replace("\r\n", "").replace("\n", "");
 
-        return value;
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
@@ -89,32 +102,44 @@ public class GetHswInfo {
      * sync
      * reboot
      **/
-    public static String getEthMac() throws IOException {
-        FileReader reader = new FileReader("/sys/class/net/eth0/address");
-        BufferedReader br = new BufferedReader(reader);
+    public static String getEthMac() {
+        String result = "";
 
-        String value = br.readLine().replace("\r\n", "").replace("\n", "");
+        try {
+            FileReader reader = new FileReader("/sys/class/net/eth0/address");
+            BufferedReader br = new BufferedReader(reader);
 
-        br.close();
-        reader.close();
+            result = br.readLine().replace("\r\n", "").replace("\n", "");
 
-        return value;
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
      * Temperature is /sys/class/thermal/thermal_zone0/temp
      **/
-    public static float getCpuTemp() throws IOException {
-        FileReader reader = new FileReader("/sys/class/thermal/thermal_zone0/temp");
-        BufferedReader br = new BufferedReader(reader);
+    public static float getCpuTemp() {
+        float result = 0;
 
-        String str = br.readLine().replace("\r\n", "").replace("\n", "");
-        float value = Float.parseFloat(str);
+        try {
+            FileReader reader = new FileReader("/sys/class/thermal/thermal_zone0/temp");
+            BufferedReader br = new BufferedReader(reader);
 
-        br.close();
-        reader.close();
+            String str = br.readLine().replace("\r\n", "").replace("\n", "");
+            result = Float.parseFloat(str);
 
-        return value / 1000;
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result / 1000;
     }
 
     /**
@@ -148,110 +173,140 @@ public class GetHswInfo {
     /**
      * You can also refer to APIs that Settings -> Memory uses
      **/
-    public static Long getRamTotalSize() throws IOException {
-        FileReader reader = new FileReader("/proc/meminfo");
-        BufferedReader br = new BufferedReader(reader);
+    public static Long getRamTotalSize() {
+        long result = 0;
 
-        long total = 0;
-        String str = null;
+        try {
+            FileReader reader = new FileReader("/proc/meminfo");
+            BufferedReader br = new BufferedReader(reader);
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("MemTotal:")) {
-                StringTokenizer stk = new StringTokenizer(str);
-                stk.nextToken();
-                total = Long.parseLong(stk.nextToken());
-            }
+            long total = 0;
+            String str = null;
+
+            while ((str = br.readLine()) != null)
+                if (str.contains("MemTotal:")) {
+                    StringTokenizer stk = new StringTokenizer(str);
+                    stk.nextToken();
+                    total = Long.parseLong(stk.nextToken());
+                }
 
 
-        br.close();
-        reader.close();
+            br.close();
+            reader.close();
 
-        return total * 1024;
+            result = total * 1024;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
      * You can also refer to APIs that Settings -> Memory uses
      **/
-    public static Long getRamAvailableSize() throws IOException {
-        FileReader reader = new FileReader("/proc/meminfo");
-        BufferedReader br = new BufferedReader(reader);
+    public static Long getRamAvailableSize() {
+        long result = 0;
 
-        long ava = 0;
-        String str = null;
+        try {
+            FileReader reader = new FileReader("/proc/meminfo");
+            BufferedReader br = new BufferedReader(reader);
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("MemAvailable:")) {
-                StringTokenizer stk = new StringTokenizer(str);
-                stk.nextToken();
-                ava = Long.parseLong(stk.nextToken());
-            }
+            long ava = 0;
+            String str = null;
 
-
-        br.close();
-        reader.close();
-
-        return ava * 1024;
-    }
-
-    public static String getCpuName() throws IOException {
-        FileReader reader = new FileReader("/proc/cpuinfo");
-        BufferedReader br = new BufferedReader(reader);
-
-        String result = "";
-        String str = null;
-
-        while ((str = br.readLine()) != null)
-            if (str.contains("Processor")) {
-                StringTokenizer stk = new StringTokenizer(str, ":");
-                stk.nextToken();
-                result = stk.nextToken().trim();
-            }
+            while ((str = br.readLine()) != null)
+                if (str.contains("MemAvailable:")) {
+                    StringTokenizer stk = new StringTokenizer(str);
+                    stk.nextToken();
+                    ava = Long.parseLong(stk.nextToken());
+                }
 
 
-        br.close();
-        reader.close();
+            br.close();
+            reader.close();
+
+            result = ava * 1024;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }
 
-    public static String getCpuModelAndSoc() throws IOException {
-        FileReader reader = new FileReader("/proc/cpuinfo");
-        BufferedReader br = new BufferedReader(reader);
-
+    public static String getCpuName() {
         String result = "";
-        String str = null;
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("Hardware")) {
-                StringTokenizer stk = new StringTokenizer(str, ":");
-                stk.nextToken();
-                result = stk.nextToken().trim();
-            }
+        try {
+            FileReader reader = new FileReader("/proc/cpuinfo");
+            BufferedReader br = new BufferedReader(reader);
+
+            String str = null;
+
+            while ((str = br.readLine()) != null)
+                if (str.contains("Processor")) {
+                    StringTokenizer stk = new StringTokenizer(str, ":");
+                    stk.nextToken();
+                    result = stk.nextToken().trim();
+                }
 
 
-        br.close();
-        reader.close();
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }
 
-    public static String getCpuSerial() throws IOException {
-        FileReader reader = new FileReader("/proc/cpuinfo");
-        BufferedReader br = new BufferedReader(reader);
-
+    public static String getCpuModelAndSoc() {
         String result = "";
-        String str = null;
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("Serial")) {
-                StringTokenizer stk = new StringTokenizer(str, ":");
-                stk.nextToken();
-                result = stk.nextToken().trim();
-            }
+        try {
+            FileReader reader = new FileReader("/proc/cpuinfo");
+            BufferedReader br = new BufferedReader(reader);
+
+            String str = null;
+
+            while ((str = br.readLine()) != null)
+                if (str.contains("Hardware")) {
+                    StringTokenizer stk = new StringTokenizer(str, ":");
+                    stk.nextToken();
+                    result = stk.nextToken().trim();
+                }
+
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static String getCpuSerial() {
+        String result = "";
+
+        try {
+            FileReader reader = new FileReader("/proc/cpuinfo");
+            BufferedReader br = new BufferedReader(reader);
+
+            String str = null;
+
+            while ((str = br.readLine()) != null)
+                if (str.contains("Serial")) {
+                    StringTokenizer stk = new StringTokenizer(str, ":");
+                    stk.nextToken();
+                    result = stk.nextToken().trim();
+                }
 
 
-        br.close();
-        reader.close();
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }
@@ -260,127 +315,156 @@ public class GetHswInfo {
     /**
      * You can also refer to APIs that Settings -> About media box uses
      **/
-    public static String getKernelVersion() throws IOException {
-        FileReader reader = new FileReader("/proc/version");
-        BufferedReader br = new BufferedReader(reader);
+    public static String getKernelVersion() {
+        String result = "";
 
-        String str = br.readLine();
-        StringTokenizer stk = new StringTokenizer(str);
+        try {
+            FileReader reader = new FileReader("/proc/version");
+            BufferedReader br = new BufferedReader(reader);
 
-        String value = null, tmp1, tmp2;
-        tmp1 = stk.nextToken();
-        tmp2 = stk.nextToken();
+            String str = br.readLine();
+            StringTokenizer stk = new StringTokenizer(str);
 
-        while (stk.hasMoreTokens()) {
-            if (tmp1.equals("Linux") && tmp2.equals("version")) {
-                value = stk.nextToken();
-                break;
-            } else {
-                tmp1 = tmp2;
-                tmp2 = stk.nextToken();
+            String tmp1, tmp2;
+            tmp1 = stk.nextToken();
+            tmp2 = stk.nextToken();
+
+            while (stk.hasMoreTokens()) {
+                if (tmp1.equals("Linux") && tmp2.equals("version")) {
+                    result = stk.nextToken();
+                    break;
+                } else {
+                    tmp1 = tmp2;
+                    tmp2 = stk.nextToken();
+                }
             }
+
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        br.close();
-        reader.close();
-
-        return value;
+        return result;
     }
 
     /**
      * You can also refer to APIs that Settings -> About media box uses
      **/
-    public static String getAndroidVersion() throws IOException {
-        FileReader reader = new FileReader("/system/build.prop");
-        BufferedReader br = new BufferedReader(reader);
+    public static String getAndroidVersion() {
+        String result = "";
 
-        String str = null;
-        String value = null;
+        try {
+            FileReader reader = new FileReader("/system/build.prop");
+            BufferedReader br = new BufferedReader(reader);
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("ro.build.version.release"))
-                value = str.substring(25);
+            String str = null;
 
-        br.close();
-        reader.close();
+            while ((str = br.readLine()) != null)
+                if (str.contains("ro.build.version.release"))
+                    result = str.substring(25);
 
-        return value.replace("\r\n", "").replace("\n", "");
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result.replace("\r\n", "").replace("\n", "");
     }
 
 
-    public static double getCpuUsage() throws IOException, InterruptedException {
-        FileReader reader = new FileReader("/proc/stat");
-        BufferedReader br = new BufferedReader(reader);
+    public static double getCpuUsage() {
+        double result = 0;
 
-        long all1 = 0;
-        long idle1 = 0;
-        long all2 = 0;
-        long idle2 = 0;
+        try {
+            FileReader reader = new FileReader("/proc/stat");
+            BufferedReader br = new BufferedReader(reader);
 
-        String str = br.readLine();
-        StringTokenizer stk = new StringTokenizer(str);
-        stk.nextToken();
+            long all1 = 0;
+            long idle1 = 0;
+            long all2 = 0;
+            long idle2 = 0;
 
-        for (int i = 0; i < 7; i++) {
-            if (i == 3) {
-                idle1 = Long.parseLong(stk.nextToken());
-                all1 += idle1;
+            String str = br.readLine();
+            StringTokenizer stk = new StringTokenizer(str);
+            stk.nextToken();
 
-                continue;
+            for (int i = 0; i < 7; i++) {
+                if (i == 3) {
+                    idle1 = Long.parseLong(stk.nextToken());
+                    all1 += idle1;
+
+                    continue;
+                }
+
+                all1 += Long.parseLong(stk.nextToken());
             }
 
-            all1 += Long.parseLong(stk.nextToken());
-        }
+            br.close();
+            reader.close();
 
-        br.close();
-        reader.close();
+            Thread.sleep(100);
 
-        Thread.sleep(100);
+            reader = new FileReader("/proc/stat");
+            br = new BufferedReader(reader);
 
-        reader = new FileReader("/proc/stat");
-        br = new BufferedReader(reader);
+            str = br.readLine();
+            stk = new StringTokenizer(str);
+            stk.nextToken();
 
-        str = br.readLine();
-        stk = new StringTokenizer(str);
-        stk.nextToken();
+            for (int i = 0; i < 7; i++) {
+                if (i == 3) {
+                    idle2 = Long.parseLong(stk.nextToken());
+                    all2 += idle2;
 
-        for (int i = 0; i < 7; i++) {
-            if (i == 3) {
-                idle2 = Long.parseLong(stk.nextToken());
-                all2 += idle2;
+                    continue;
+                }
 
-                continue;
+                all2 += Long.parseLong(stk.nextToken());
             }
 
-            all2 += Long.parseLong(stk.nextToken());
+            br.close();
+            reader.close();
+
+            result = 100.0 * (all2 - all1 - (idle2 - idle1)) / (all2 - all1);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-        br.close();
-        reader.close();
-
-        return 100.0 * (all2 - all1 - (idle2 - idle1)) / (all2 - all1);
+        return result;
     }
 
 
-    public static Long getRamTotleSize() throws IOException {
-        FileReader reader = new FileReader("/proc/meminfo");
-        BufferedReader br = new BufferedReader(reader);
+    public static Long getRamTotleSize() {
+        long result = 0;
 
-        long total = 0;
-        String str = null;
+        try {
+            FileReader reader = new FileReader("/proc/meminfo");
+            BufferedReader br = new BufferedReader(reader);
 
-        while ((str = br.readLine()) != null)
-            if (str.contains("MemTotal:")) {
-                StringTokenizer stk = new StringTokenizer(str);
-                stk.nextToken();
-                total = Long.parseLong(stk.nextToken());
-            }
+            long total = 0;
+            String str = null;
+
+            while ((str = br.readLine()) != null)
+                if (str.contains("MemTotal:")) {
+                    StringTokenizer stk = new StringTokenizer(str);
+                    stk.nextToken();
+                    total = Long.parseLong(stk.nextToken());
+                }
 
 
-        br.close();
-        reader.close();
+            br.close();
+            reader.close();
 
-        return total * 1024;
+            result = total * 1024;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     public static String formatSize(long size) {
@@ -412,104 +496,129 @@ public class GetHswInfo {
     }
 
 
-    public static String getUpTime() throws IOException {
+    public static String getUpTime() {
         String result = "";
 
-        String[] command = {"uptime"};
-        Process process = Runtime.getRuntime().exec(command);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String s;
-        while ((s = reader.readLine()) != null) {
-            Log.d("GetHswInfo", "uptime output: " + s);
-            result += s + " ";
+        try {
+            String[] command = {"uptime"};
+            Process process = null;
+            process = Runtime.getRuntime().exec(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String s;
+            while ((s = reader.readLine()) != null) {
+                Log.d("GetHswInfo", "uptime output: " + s);
+                result += s + " ";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return result;
     }
 
-    public static String getHdcpMode() throws IOException {
+    public static String getHdcpMode() {
         String result = "";
 
-        FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/hdcp_mode");
-        BufferedReader br = new BufferedReader(reader);
+        try {
+            FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/hdcp_mode");
+            BufferedReader br = new BufferedReader(reader);
 
-        String s = null;
+            String s = null;
 
-        while ((s = br.readLine()) != null)
-            result += s + " ";
+            while ((s = br.readLine()) != null)
+                result += s + " ";
 
-        br.close();
-        reader.close();
-
-        return result;
-    }
-
-    public static String getHdcpVer() throws IOException {
-        String result = "";
-
-        FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/hdcp_ver");
-        BufferedReader br = new BufferedReader(reader);
-
-        String s = null;
-
-        while ((s = br.readLine()) != null)
-            result += s + " ";
-
-        br.close();
-        reader.close();
-
-        return result;
-    }
-
-    public static String getEthernetLinkSpeed() throws IOException {
-        String result = "";
-
-        FileReader reader = new FileReader("/sys/class/ethernet/linkspeed");
-        BufferedReader br = new BufferedReader(reader);
-
-        String s = null;
-
-        while ((s = br.readLine()) != null)
-            result += s + " ";
-
-        br.close();
-        reader.close();
-
-        return result;
-    }
-
-    public static String getDisplayMode() throws IOException {
-        String result = "";
-
-        FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/disp_cap");
-        BufferedReader br = new BufferedReader(reader);
-
-        String s = null;
-
-        while ((s = br.readLine()) != null) {
-            Log.d("GetHswInfo", "display mode: " + s);
-            result += s + " ";
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        br.close();
-        reader.close();
+        return result;
+    }
+
+    public static String getHdcpVer() {
+        String result = "";
+
+        try {
+            FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/hdcp_ver");
+            BufferedReader br = new BufferedReader(reader);
+
+            String s = null;
+
+            while ((s = br.readLine()) != null)
+                result += s + " ";
+
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }
 
-    public static String getHdmiAuthenticated() throws IOException {
+    public static String getEthernetLinkSpeed() {
         String result = "";
 
-        FileReader reader = new FileReader("/sys/module/hdmitx20/parameters/hdmi_authenticated");
-        BufferedReader br = new BufferedReader(reader);
+        try {
+            FileReader reader = new FileReader("/sys/class/ethernet/linkspeed");
+            BufferedReader br = new BufferedReader(reader);
 
-        String s = null;
+            String s = null;
 
-        while ((s = br.readLine()) != null)
-            result += s + " ";
+            while ((s = br.readLine()) != null)
+                result += s + " ";
 
-        br.close();
-        reader.close();
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static String getDisplayMode() {
+        String result = "";
+
+        try {
+            FileReader reader = new FileReader("/sys/class/amhdmitx/amhdmitx0/disp_cap");
+            BufferedReader br = new BufferedReader(reader);
+
+            String s = null;
+
+            while ((s = br.readLine()) != null) {
+                Log.d("GetHswInfo", "display mode: " + s);
+                result += s + " ";
+            }
+
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static String getHdmiAuthenticated() {
+        String result = "";
+
+        try {
+            FileReader reader = new FileReader("/sys/module/hdmitx20/parameters/hdmi_authenticated");
+            BufferedReader br = new BufferedReader(reader);
+
+            String s = null;
+
+            while ((s = br.readLine()) != null)
+                result += s + " ";
+
+            br.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }

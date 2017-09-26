@@ -1,7 +1,5 @@
 package com.droidlogic.app;
 
-import android.os.RemoteException;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 

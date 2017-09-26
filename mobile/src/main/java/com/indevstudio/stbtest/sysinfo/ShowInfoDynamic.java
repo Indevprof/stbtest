@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.TimerTask;
 
 
@@ -33,20 +32,9 @@ public class ShowInfoDynamic extends TimerTask {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0x01)
-                try {
-                    view.setText(Double.toString(100.0 - 100.0 * GetHswInfo.getRamAvailableSize() / GetHswInfo.getRamTotleSize()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                view.setText(Double.toString(100.0 - 100.0 * GetHswInfo.getRamAvailableSize() / GetHswInfo.getRamTotleSize()));
             else if (msg.what == 0x02) {
-                try {
-                    view.setText(Double.toString(GetHswInfo.getCpuUsage()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                view.setText(Double.toString(GetHswInfo.getCpuUsage()));
             }
         }
     };

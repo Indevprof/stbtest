@@ -17,14 +17,14 @@
 package com.droidlogic;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.os.UEventObserver;
 import android.os.IBinder;
+import android.os.UEventObserver;
 import android.util.Log;
-import java.io.File;
 
 import com.droidlogic.app.HdmiCecManager;
+
+import java.io.File;
 
 /**
  * Stub implementation of (@link android.media.tv.TvInputService}.

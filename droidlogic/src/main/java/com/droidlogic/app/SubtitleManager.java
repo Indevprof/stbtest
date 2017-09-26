@@ -1,7 +1,7 @@
 package com.droidlogic.app;
 
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,16 +14,14 @@ import android.os.ServiceManager;
 import android.os.SystemProperties;
 import android.provider.MediaStore;
 import android.util.Log;
-import java.lang.Integer;
-import java.lang.Thread;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+
 import com.droidlogic.SubTitleService.ISubTitleService;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class SubtitleManager {
         private String TAG = "SubtitleManager";

@@ -1,8 +1,8 @@
 package com.droidlogic.app;
 
-import java.io.InputStream;
-
 import android.graphics.Bitmap;
+
+import java.io.InputStream;
 
 public class GIFDecodesManager {
     private static final String TAG = "GIFDecodesManager";

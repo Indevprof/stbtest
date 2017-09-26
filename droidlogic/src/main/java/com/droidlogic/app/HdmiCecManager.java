@@ -5,8 +5,8 @@ import android.content.res.Configuration;
 import android.util.Log;
 
 import java.io.File;
-import java.util.Locale;
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 
 public class HdmiCecManager {

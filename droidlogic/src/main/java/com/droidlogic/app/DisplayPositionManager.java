@@ -1,7 +1,6 @@
 package com.droidlogic.app;
 
 import android.content.Context;
-import android.util.Log;
 
 public class DisplayPositionManager {
     private final static String TAG = "DisplayPositionManager";

@@ -29,7 +29,6 @@
         <activity android:name=".exoplayer.PlayerActivity" />
         <activity android:name=".exoplayer.SampleChooserActivity" />
         <activity android:name=".sysinfo.SysInfoActivity" />
-        <activity android:name=".MainActivity2" />
         <activity android:name=".led.LedActivity"></activity>
     </application>
 

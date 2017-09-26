@@ -1,12 +1,10 @@
 package com.indevstudio.stbtest;
 
 import android.content.Context;
-import android.widget.TextView;
+import android.view.View;
 
 public class UiHelper {
-    public static void setTextViewStyle(Context context, TextView textView) {
-        // textView.setFocusable(true);
-        textView.setBackgroundResource(R.drawable.listview_background);
-        ((TextView) textView).setTextColor(context.getResources().getColor(R.color.listview_textcolor, context.getTheme()));
+    public static void setViewStyle(Context context, View view) {
+        view.setBackgroundResource(R.drawable.listview_background);
     }
 }

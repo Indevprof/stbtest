@@ -52,7 +52,7 @@ public class OpenFileDialog extends AlertDialog.Builder {
     private class FileAdapter extends ArrayAdapter<File> {
 
         public FileAdapter(Context context, List<File> files) {
-            super(context, android.R.layout.simple_list_item_1, files);
+            super(context, R.layout.listview_item, files);
         }
 
         @Override
@@ -70,7 +70,7 @@ public class OpenFileDialog extends AlertDialog.Builder {
                     else
                         view.setBackgroundColor(getContext().getResources().getColor(android.R.color.transparent));
                 }
-                UiHelper.setTextViewStyle(getContext(), (TextView) view);
+                UiHelper.setViewStyle(getContext(), (TextView) view);
             }
             return view;
         }
@@ -240,7 +240,7 @@ public class OpenFileDialog extends AlertDialog.Builder {
                 }
             }
         });
-        UiHelper.setTextViewStyle(getContext(), textView);
+        UiHelper.setViewStyle(getContext(), textView);
         textView.setFocusable(true);
 
         return textView;

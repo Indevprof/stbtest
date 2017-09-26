@@ -14,7 +14,6 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.indevstudio.stbtest.sysinfo.GetHswInfo;
 
-import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -199,14 +198,8 @@ public final class DebugTextViewHelper implements Runnable, Player.EventListener
         float t = 0;
         double u = 0;
 
-        try {
-            t = GetHswInfo.getCpuTemp();
-            u = GetHswInfo.getCpuUsage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        t = GetHswInfo.getCpuTemp();
+        u = GetHswInfo.getCpuUsage();
 
         return String.format("CPU (t:%.1f u:%.1f)", t, u);
     }
@@ -214,11 +207,7 @@ public final class DebugTextViewHelper implements Runnable, Player.EventListener
     private String getWifiString() {
         String mac = "";
 
-        try {
-            mac = GetHswInfo.getWifiMac();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mac = GetHswInfo.getWifiMac();
 
         return String.format("WI-FI (mac:%s)", mac);
     }
@@ -226,11 +215,7 @@ public final class DebugTextViewHelper implements Runnable, Player.EventListener
     private String getEthernetString() {
         String mac = "";
 
-        try {
-            mac = GetHswInfo.getEthMac();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mac = GetHswInfo.getEthMac();
 
         return String.format("ETHERNET (mac:%s)", mac);
     }
@@ -238,13 +223,9 @@ public final class DebugTextViewHelper implements Runnable, Player.EventListener
     private String getRamString() {
         String s = "";
 
-        try {
-            s = String.format("RAM (total:%s available:%s)",
-                    GetHswInfo.formatSize(GetHswInfo.getRamTotalSize()),
-                    GetHswInfo.formatSize(GetHswInfo.getRamAvailableSize()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        s = String.format("RAM (total:%s available:%s)",
+                GetHswInfo.formatSize(GetHswInfo.getRamTotalSize()),
+                GetHswInfo.formatSize(GetHswInfo.getRamAvailableSize()));
 
         return s;
     }

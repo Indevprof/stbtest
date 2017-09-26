@@ -2,7 +2,6 @@ package com.droidlogic.app;
 
 import android.content.Context;
 import android.provider.Settings;
-import android.util.Log;
 
 public class PlayBackManager {
     private static final String TAG             = "PlayBackManager";

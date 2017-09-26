@@ -49,6 +49,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -313,11 +314,11 @@ public class SampleChooserActivity extends AppCompatActivity {
                                  View convertView, ViewGroup parent) {
             View view = convertView;
             if (view == null) {
-                view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false);
-                UiHelper.setTextViewStyle(this.context, (TextView) view);
-                view.setPadding(30,0,0,0);
+                // view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.listview_item, parent, false);
+                UiHelper.setViewStyle(this.context, (TextView) view);
             }
-            ((TextView) view).setText("          " + getChild(groupPosition, childPosition).name);
+            ((TextView) view).setText("                    " + getChild(groupPosition, childPosition).name);
             return view;
         }
 
@@ -341,9 +342,9 @@ public class SampleChooserActivity extends AppCompatActivity {
                                  ViewGroup parent) {
             View view = convertView;
             if (view == null) {
-                view = LayoutInflater.from(context).inflate(android.R.layout.simple_expandable_list_item_1,
-                        parent, false);
-                UiHelper.setTextViewStyle(this.context, (TextView) view);
+                // view = LayoutInflater.from(context).inflate(android.R.layout.simple_expandable_list_item_1, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.listview_item_expandable, parent, false);
+                UiHelper.setViewStyle(this.context, (TextView) view);
             }
             ((TextView) view).setText(getGroup(groupPosition).title);
             return view;
