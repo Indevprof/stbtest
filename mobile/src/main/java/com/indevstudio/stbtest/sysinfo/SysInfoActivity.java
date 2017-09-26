@@ -19,6 +19,7 @@ import com.indevstudio.stbtest.UiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SysInfoActivity extends AppCompatActivity {
 
@@ -112,9 +113,9 @@ public class SysInfoActivity extends AppCompatActivity {
         } else if (item.getValue().equals("system")) {
             systemInfo();
         } else if (item.getValue().equals("cpu")) {
-            clearListView();
+            cpuInfo();
         } else if (item.getValue().equals("mem")) {
-            clearListView();
+            memInfo();
         } else if (item.getValue().equals("ethernet")) {
             clearListView();
         } else if (item.getValue().equals("wifi")) {
@@ -160,6 +161,30 @@ public class SysInfoActivity extends AppCompatActivity {
         items.add(new ListviewItem("Серийный номер устройства", GetHswInfo.getSnNumber().toUpperCase()));
         items.add(new ListviewItem("MAC адреса интерфейсов", String.format("Wi-Fi %s, Ethernet %s", GetHswInfo.getWifiMac(), GetHswInfo.getEthMac()).toUpperCase()));
         items.add(new ListviewItem("HDCP ключ", ""));
+
+        showInfo(items);
+    }
+
+    void cpuInfo() {
+        GetCpuInfo info = new GetCpuInfo();
+
+        ArrayList<ListviewItem> items = new ArrayList<>();
+
+        for (Map.Entry<String, String> e : info.getItems().entrySet()) {
+            items.add(new ListviewItem(e.getKey(), e.getValue()));
+        }
+
+        showInfo(items);
+    }
+
+    void memInfo() {
+        GetMemInfo info = new GetMemInfo();
+
+        ArrayList<ListviewItem> items = new ArrayList<>();
+
+        for (Map.Entry<String, String> e : info.getItems().entrySet()) {
+            items.add(new ListviewItem(e.getKey(), e.getValue()));
+        }
 
         showInfo(items);
     }
