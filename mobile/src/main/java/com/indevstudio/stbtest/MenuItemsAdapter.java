@@ -53,7 +53,8 @@ public class MenuItemsAdapter extends BaseAdapter {
             view.setFocusable(false);
             view.setClickable(false);
             if (textView_text != null) {
-                textView_text.setTypeface(textView_text.getTypeface(), Typeface.BOLD);
+                // textView_text.setTypeface(textView_text.getTypeface(), Typeface.BOLD);
+                textView_text.setTextColor(context.getResources().getColor(R.color.colorTextColorHeader, context.getTheme()));
             }
         } else
             UiHelper.setViewStyle(context, view);

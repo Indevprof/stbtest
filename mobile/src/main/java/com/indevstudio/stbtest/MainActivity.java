@@ -13,6 +13,7 @@ import com.indevstudio.stbtest.exoplayer.PlayerActivity;
 import com.indevstudio.stbtest.exoplayer.SampleChooserActivity;
 import com.indevstudio.stbtest.led.LedActivity;
 import com.indevstudio.stbtest.network.NetSpeedSettings;
+import com.indevstudio.stbtest.remote.RemoteControlActivity;
 import com.indevstudio.stbtest.sysinfo.SysInfoActivity;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(new ListviewItem("7. Демонстрация работы videomark", "test 7"));
         items.add(new ListviewItem("8. HDMI различные разрешения, пропорции и масштабирование видео", "test 8"));
         items.add(new ListviewItem("9. HDMI CEC", "test 9"));
-        items.add(new ListviewItem("10. Работа Пульта", "test 10"));
+        items.add(new ListviewItem("10. Работа Пульта (*)", "test 10"));
         items.add(new ListviewItem("11. LED индикатор (*)", "test 11"));
 
         final ListView listView = (ListView) findViewById(R.id.listView);
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         if (item.getValue().equals("test 10")) {
-
+            remoteControlTest();
         }
         else
         if (item.getValue().equals("test 11")) {
@@ -180,7 +181,9 @@ public class MainActivity extends AppCompatActivity {
     public void onTest9(View v) {
     }
 
-    public void onTest10(View v) {
+    void remoteControlTest() {
+        Intent intent = new Intent(this, RemoteControlActivity.class);
+        startActivity(intent);
     }
 
     void ledTest() {

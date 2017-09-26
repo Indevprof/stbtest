@@ -5,11 +5,10 @@
     android:orientation="vertical">
 
     <LinearLayout
+        style="@style/AppTheme.ListViewItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="7dp"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/text"

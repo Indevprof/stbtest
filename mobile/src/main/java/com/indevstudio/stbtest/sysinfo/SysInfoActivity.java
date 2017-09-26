@@ -34,9 +34,11 @@ public class SysInfoActivity extends AppCompatActivity {
         items.add(new ListviewItem("Система", "system"));
         items.add(new ListviewItem("Процессор", "cpu"));
         items.add(new ListviewItem("Память", "mem"));
-        items.add(new ListviewItem("Ethernet", "ethernet"));
+        items.add(new ListviewItem("Сетевые подключения", "network"));
         items.add(new ListviewItem("Wi-fi", "wifi"));
+        items.add(new ListviewItem("Ethernet", "ethernet"));
         items.add(new ListviewItem("Software", "software"));
+        items.add(new ListviewItem("HDCP", "hdcp"));
 
         final ListView listView = (ListView) findViewById(R.id.headerListView);
         listView.setAdapter(new MenuItemsAdapter(this, items));
@@ -44,8 +46,20 @@ public class SysInfoActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                onAction((ListviewItem) listView.getItemAtPosition(i));
-                view.setSelected(true);
+                final int position = i;
+                final View itemView = view;
+
+                onAction((ListviewItem) listView.getItemAtPosition(position));
+
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        itemView.setSelected(true);
+                        itemView.setActivated(true);
+                        itemView.requestFocus();
+                    }
+                });
             }
         });
 
@@ -62,7 +76,7 @@ public class SysInfoActivity extends AppCompatActivity {
         });
 
 /*
-        GetNetInfo netInfo = new GetNetInfo();
+        GetNetworkInformation netInfo = new GetNetworkInformation();
 
         ArrayList<ListviewItem> items = new ArrayList<>();
 
@@ -116,12 +130,16 @@ public class SysInfoActivity extends AppCompatActivity {
             cpuInfo();
         } else if (item.getValue().equals("mem")) {
             memInfo();
+        } else if (item.getValue().equals("network")) {
+            netInfo();
         } else if (item.getValue().equals("ethernet")) {
-            clearListView();
+            ethernetInfo();
         } else if (item.getValue().equals("wifi")) {
-            clearListView();
+            wifiInfo();
         } else if (item.getValue().equals("software")) {
             clearListView();
+        } else if (item.getValue().equals("hdcp")) {
+            hdcpInfo();
         }
     }
 
@@ -130,13 +148,22 @@ public class SysInfoActivity extends AppCompatActivity {
         listView.setAdapter(null);
     }
 
-    void showInfo(ArrayList<ListviewItem> items) {
+    void showInfo(GetSysFileInfo info) {
+        ArrayList<ListviewItem> items = new ArrayList<>();
+
+        for (Map.Entry<String, String> e : info.getItems().entrySet()) {
+            items.add(new ListviewItem(e.getKey(), e.getValue()));
+        }
+        showInfoItems(items);
+    }
+
+    void showInfoItems(ArrayList<ListviewItem> items) {
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new SysInfoItemsAdapter(this, items));
     }
 
     void testInfo() {
-        GetNetInfo netInfo = new GetNetInfo();
+        GetNetworkInformation netInfo = new GetNetworkInformation();
 
         ArrayList<ListviewItem> items = new ArrayList<>();
 
@@ -148,45 +175,47 @@ public class SysInfoActivity extends AppCompatActivity {
         items.add(new ListviewItem("Display mode", GetHswInfo.getDisplayMode()));
         items.add(new ListviewItem("Hdmi authenticated", GetHswInfo.getHdmiAuthenticated()));
 
-        showInfo(items);
+        showInfoItems(items);
     }
 
     void systemInfo() {
-        GetNetInfo netInfo = new GetNetInfo();
+//        GetNetworkInformation netInfo = new GetNetworkInformation();
+//
+//        ArrayList<ListviewItem> items = new ArrayList<>();
+//
+//        items.add(new ListviewItem("Название модели", GetHswInfo.getModelName().toUpperCase()));
+//        items.add(new ListviewItem("Аппаратная ревизия", ""));
+//        items.add(new ListviewItem("Серийный номер устройства", GetHswInfo.getSnNumber().toUpperCase()));
+//        items.add(new ListviewItem("MAC адреса интерфейсов", String.format("Wi-Fi %s, Ethernet %s", GetHswInfo.getWifiMac(), GetHswInfo.getEthMac()).toUpperCase()));
+//        items.add(new ListviewItem("HDCP ключ", ""));
+//
+//        showInfo(items);
 
-        ArrayList<ListviewItem> items = new ArrayList<>();
-
-        items.add(new ListviewItem("Название модели", GetHswInfo.getModelName().toUpperCase()));
-        items.add(new ListviewItem("Аппаратная ревизия", ""));
-        items.add(new ListviewItem("Серийный номер устройства", GetHswInfo.getSnNumber().toUpperCase()));
-        items.add(new ListviewItem("MAC адреса интерфейсов", String.format("Wi-Fi %s, Ethernet %s", GetHswInfo.getWifiMac(), GetHswInfo.getEthMac()).toUpperCase()));
-        items.add(new ListviewItem("HDCP ключ", ""));
-
-        showInfo(items);
+        showInfo(new GetVersionInfo());
     }
 
     void cpuInfo() {
-        GetCpuInfo info = new GetCpuInfo();
-
-        ArrayList<ListviewItem> items = new ArrayList<>();
-
-        for (Map.Entry<String, String> e : info.getItems().entrySet()) {
-            items.add(new ListviewItem(e.getKey(), e.getValue()));
-        }
-
-        showInfo(items);
+        showInfo(new GetCpuInfo());
     }
 
     void memInfo() {
-        GetMemInfo info = new GetMemInfo();
+        showInfo(new GetMemInfo());
+    }
 
-        ArrayList<ListviewItem> items = new ArrayList<>();
+    void hdcpInfo() {
+        showInfo(new GetHdcpInfo());
+    }
 
-        for (Map.Entry<String, String> e : info.getItems().entrySet()) {
-            items.add(new ListviewItem(e.getKey(), e.getValue()));
-        }
+    void netInfo() {
+        showInfo(new GetNetInfo(getBaseContext()));
+    }
 
-        showInfo(items);
+    void ethernetInfo() {
+        showInfo(new GetEthernetInfo());
+    }
+
+    void wifiInfo() {
+        showInfo(new GetWifiInfo());
     }
 
     private class SysInfoItemsAdapter extends BaseAdapter {
