@@ -10,28 +10,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            >
+            android:padding="20dp">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_11"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="TV" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_12"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Power" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_13"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="AV" />
             </TableRow>
 
@@ -39,16 +48,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_21"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Back" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_22"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Menu" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_23"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Toggle" />
             </TableRow>
 
@@ -58,8 +73,10 @@
 
                 <TextView />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_32"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Up" />
 
                 <TextView />
@@ -69,16 +86,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_41"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Left" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_42"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="OK" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_43"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Right" />
             </TableRow>
 
@@ -88,8 +111,10 @@
 
                 <TextView />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_52"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Down" />
 
                 <TextView />
@@ -99,16 +124,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_61"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Rev" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_62"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Play" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_63"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="FF" />
             </TableRow>
 
@@ -117,16 +148,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_71"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="V+" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_72"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Mute" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_73"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="P+" />
             </TableRow>
 
@@ -134,16 +171,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_81"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="V-" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_82"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="Last" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_1_83"
+                    style="@style/AppTheme.RcuButton"
+                    android:background="@drawable/bg_round_green"
                     android:text="P-" />
             </TableRow>
         </TableLayout>
@@ -156,8 +199,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
 
             <TableLayout
@@ -170,16 +213,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_11"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="1" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_12"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="2" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_13"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="3" />
                 </TableRow>
 
@@ -187,16 +236,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_21"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="4" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_22"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="5" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_23"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="6" />
                 </TableRow>
 
@@ -204,16 +259,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_31"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="7" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_32"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="8" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_33"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="9" />
                 </TableRow>
 
@@ -223,8 +284,10 @@
 
                     <TextView />
 
-                    <Button
+                    <TextView
                         android:id="@+id/button_2_42"
+                        style="@style/AppTheme.RcuButton"
+                        android:background="@drawable/bg_round_green"
                         android:text="0" />
 
                     <TextView />
@@ -236,21 +299,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:paddingTop="20dp"
-                >
+                android:paddingTop="20dp">
 
                 <TableRow android:padding="5dp">
-                    <TextView
-                        android:text="IR Sys Code: " />
+
+                    <TextView android:text="IR Sys Code: " />
 
                     <TextView
                         android:id="@+id/text_sysCode"
-                        android:layout_width="match_parent"/>
+                        android:layout_width="match_parent" />
                 </TableRow>
 
                 <TableRow android:padding="5dp">
-                    <TextView
-                        android:text="IR Key Code: " />
+
+                    <TextView android:text="IR Key Code: " />
 
                     <TextView
                         android:id="@+id/text_keyCode"
@@ -258,8 +320,8 @@
                 </TableRow>
 
                 <TableRow android:padding="5dp">
-                    <TextView
-                        android:text="Key Scan Code: " />
+
+                    <TextView android:text="Key Scan Code: " />
 
                     <TextView
                         android:id="@+id/text_scanCode"
@@ -273,17 +335,17 @@
                 android:id="@+id/checkBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Разрешить нажатие экранной кнопки"
                 android:maxLines="1"
-                android:textSize="12sp"
-                />
+                android:text="Разрешить нажатие экранной кнопки"
+                android:textSize="12sp" />
 
             <Button
+                android:id="@+id/button_Clear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_Clear"
+                android:onClick="onClear"
                 android:text="Очистить цвет кнопок"
-                 />
+                android:textSize="12sp" />
 
         </LinearLayout>
 

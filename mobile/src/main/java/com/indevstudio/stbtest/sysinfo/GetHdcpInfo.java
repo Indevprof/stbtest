@@ -15,6 +15,7 @@ public class GetHdcpInfo extends GetSysFileInfo {
     public GetHdcpInfo() {
         super(null);
 
+        items.put("HDCP", "header");
         items.put("HDCP mode", getHdcpMode());
         items.put("HDCP version", getHdcpVer());
     }

@@ -13,13 +13,15 @@ import java.util.List;
 public class MenuItemsAdapter extends BaseAdapter {
     Context context;
     LayoutInflater inflater;
+    boolean sub;
 
     List<ListviewItem> items;
 
-    public MenuItemsAdapter(Context context, List<ListviewItem> items) {
+    public MenuItemsAdapter(Context context, List<ListviewItem> items, boolean sub) {
         this.context = context;
         this.items = items;
         this.inflater = (LayoutInflater.from(context));
+        this.sub = sub;
     }
 
     @Override
@@ -39,7 +41,9 @@ public class MenuItemsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        view = inflater.inflate(R.layout.menu_item, null);
+        view = inflater.inflate(
+                sub ? R.layout.menu_item_sub : R.layout.menu_item,
+                null);
 
         ListviewItem item = (ListviewItem) getItem(position);
 

@@ -9,6 +9,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
+import com.indevstudio.stbtest.ListviewItem;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class GetNetInfo extends GetSysFileInfo {
@@ -131,6 +134,15 @@ public class GetNetInfo extends GetSysFileInfo {
 
     @Override
     public HashMap<String, String> getItems() {
-        return getAllItems();
+        HashMap<String, String> resultItems = new LinkedHashMap<>();
+
+        resultItems.put("Общее", "header");
+
+        resultItems.put("Uptime", GetHswInfo.getUpTime());
+        resultItems.put("Ethernet link speed", GetHswInfo.getEthernetLinkSpeed());
+
+        resultItems.putAll(items);
+
+        return resultItems;
     }
 }

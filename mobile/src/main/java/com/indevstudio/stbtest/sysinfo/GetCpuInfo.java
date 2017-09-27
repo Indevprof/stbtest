@@ -16,6 +16,8 @@ public class GetCpuInfo extends GetSysFileInfo {
         names.put("Hardware", "Модель процессора");
         names.put("Serial", "Серийный номер");
 
+        names.put("processor", "");
+
         return super.getNamedItemsAndItems("Главное", "Прочее", names);
     }
 

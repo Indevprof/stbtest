@@ -3,7 +3,10 @@ package com.indevstudio.stbtest.sysinfo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class GetWifiInfo extends GetSysFileInfo {
     public GetWifiInfo() {
@@ -39,6 +42,73 @@ public class GetWifiInfo extends GetSysFileInfo {
 
     @Override
     public HashMap<String, String> getItems() {
-        return getAllItems();
+        HashMap<String, String> resultItems = new LinkedHashMap<>();
+
+        ArrayList<String> itemsToRemove = new ArrayList<>();
+
+        for (Map.Entry<String, String> e : items.entrySet()) {
+            String s = e.getKey();
+
+            if (s == null) continue;
+
+            if (s.toLowerCase().contains("link encap")) {
+                s = s.trim();
+                String title = s.substring(0, s.indexOf(" "));
+                if (title != null && !title.isEmpty()) {
+                    resultItems.put(title, "header");
+                    resultItems.put("Hardware", s.replace(title, "").trim());
+                    itemsToRemove.add(e.getKey());
+                }
+            }
+
+            if (s.toLowerCase().contains("cast")) {
+                s = s.trim();
+                resultItems.put("Mode", s.trim());
+                itemsToRemove.add(e.getKey());
+            }
+
+            if (s.toLowerCase().contains("inet6")) {
+                s = s.trim();
+                resultItems.put("Inet6 address", s.toLowerCase().replaceAll("inet6 addr:", "").trim());
+                itemsToRemove.add(e.getKey());
+            }
+
+            if (s.toLowerCase().contains("rx packets")) {
+                s = s.trim();
+                resultItems.put("RX packets", s.trim());
+                itemsToRemove.add(e.getKey());
+            }
+
+            if (s.toLowerCase().contains("tx packets")) {
+                s = s.trim();
+                resultItems.put("TX packets", s.trim());
+                itemsToRemove.add(e.getKey());
+            }
+
+            if (s.toLowerCase().contains("collisions")) {
+                s = s.trim();
+                resultItems.put("Collisions", s.trim());
+                itemsToRemove.add(e.getKey());
+            }
+
+            if (s.toLowerCase().contains("rx bytes")) {
+                s = s.trim();
+                resultItems.put("RX\\TX bytes", s.trim());
+                itemsToRemove.add(e.getKey());
+            }
+
+            if (s.toLowerCase().contains("interrupt")) {
+                s = s.trim();
+                resultItems.put("Interrupt", s.toLowerCase().replaceAll("interrupt", "").replaceAll(":", "").trim());
+                itemsToRemove.add(e.getKey());
+            }
+        }
+
+        resultItems.putAll(items);
+
+        for (String s : itemsToRemove)
+            resultItems.remove(s);
+
+        return resultItems;
     }
 }

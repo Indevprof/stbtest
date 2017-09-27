@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class RemoteControlActivity extends AppCompatActivity {
 
     HashMap<Integer, Integer> keyMap;
+    HashMap<Integer, Integer> keyMapDisabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +23,13 @@ public class RemoteControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_remote_control);
 
         initKeyMap();
+
+        onClear(null);
     }
 
     void initKeyMap() {
         keyMap = new HashMap<>();
+        keyMapDisabled = new HashMap<>();
 
 //        keyMap.put(2, R.id.button_1_11);
 //        keyMap.put(3, R.id.button_1_12);
@@ -69,12 +73,40 @@ public class RemoteControlActivity extends AppCompatActivity {
         keyMap.put(10, R.id.button_2_33);
 
         keyMap.put(11, R.id.button_2_42);
+
+        // Disabled
+        keyMapDisabled.put(-1, R.id.button_1_11);
+        keyMapDisabled.put(-2, R.id.button_1_12);
+        keyMapDisabled.put(-3, R.id.button_1_13);
+        keyMapDisabled.put(-4, R.id.button_1_23);
+        keyMapDisabled.put(-5, R.id.button_1_73);
+        keyMapDisabled.put(-6, R.id.button_1_82);
+        keyMapDisabled.put(-7, R.id.button_1_83);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        processKey(keyCode, event);
+
+//        if (!processKey(keyCode, event))
+            return super.onKeyDown(keyCode, event);
+
+//        return true;
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
+        processKey(keyCode, event);
+
+//        if (!processKey(keyCode, event))
+//            return super.onKeyUp(keyCode, event);
+
+        return super.onKeyUp(keyCode, event);
+    }
+
+    boolean processKey(int keyCode, KeyEvent event) {
         TextView textView = (TextView) this.findViewById(R.id.text_keyCode);
-        textView.setText(String.format("%d", keyCode));
+        textView.setText(String.format("%d", event.getKeyCode()));
 
         textView = (TextView) this.findViewById(R.id.text_scanCode);
         textView.setText(String.format("%d", event.getScanCode()));
@@ -85,9 +117,8 @@ public class RemoteControlActivity extends AppCompatActivity {
         paintButton(event.getScanCode());
 
         CheckBox checkBox = (CheckBox) this.findViewById(R.id.checkBox);
-
         if (checkBox.isChecked())
-            return super.onKeyUp(keyCode, event);
+            return false;
 
         return true;
     }
@@ -96,16 +127,28 @@ public class RemoteControlActivity extends AppCompatActivity {
 
         Integer resId = keyMap.get(scanCode);
         if (resId != null) {
-            Button btn = (Button) this.findViewById(resId);
+            View btn = this.findViewById(resId);
             if (btn != null) {
                 int pl = btn.getPaddingLeft();
                 int pr = btn.getPaddingRight();
                 int pt = btn.getPaddingTop();
                 int pb = btn.getPaddingBottom();
-                btn.setBackgroundResource(R.color.colorPrimaryLight);
+                btn.setBackgroundResource(R.drawable.bg_round_green);
                 btn.setPadding(pl, pt, pr, pb);
             }
         }
     }
 
+    public void onClear(View v) {
+        for (Integer resId: keyMap.values()) {
+            View btn = this.findViewById(resId);
+            if (btn != null)
+                btn.setBackgroundResource(R.drawable.bg_round_grey);
+        }
+        for (Integer resId: keyMapDisabled.values()) {
+            View btn = this.findViewById(resId);
+            if (btn != null)
+                btn.setBackgroundResource(R.drawable.bg_round_disabled);
+        }
+    }
 }

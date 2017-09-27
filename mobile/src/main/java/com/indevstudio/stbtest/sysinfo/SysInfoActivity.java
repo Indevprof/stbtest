@@ -30,18 +30,19 @@ public class SysInfoActivity extends AppCompatActivity {
 
         ArrayList<ListviewItem> items = new ArrayList<>();
 
-        items.add(new ListviewItem("Тест", "test"));
+        // items.add(new ListviewItem("Тест", "test"));
         items.add(new ListviewItem("Система", "system"));
         items.add(new ListviewItem("Процессор", "cpu"));
         items.add(new ListviewItem("Память", "mem"));
         items.add(new ListviewItem("Сетевые подключения", "network"));
         items.add(new ListviewItem("Wi-fi", "wifi"));
         items.add(new ListviewItem("Ethernet", "ethernet"));
+        items.add(new ListviewItem("Дисплей", "display"));
         items.add(new ListviewItem("Software", "software"));
         items.add(new ListviewItem("HDCP", "hdcp"));
 
         final ListView listView = (ListView) findViewById(R.id.headerListView);
-        listView.setAdapter(new MenuItemsAdapter(this, items));
+        listView.setAdapter(new MenuItemsAdapter(this, items, false));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,8 +137,10 @@ public class SysInfoActivity extends AppCompatActivity {
             ethernetInfo();
         } else if (item.getValue().equals("wifi")) {
             wifiInfo();
+        } else if (item.getValue().equals("display")) {
+            displayInfo();
         } else if (item.getValue().equals("software")) {
-            clearListView();
+            softInfo();
         } else if (item.getValue().equals("hdcp")) {
             hdcpInfo();
         }
@@ -167,10 +170,6 @@ public class SysInfoActivity extends AppCompatActivity {
 
         ArrayList<ListviewItem> items = new ArrayList<>();
 
-        items.add(new ListviewItem("Uptime", GetHswInfo.getUpTime()));
-        items.add(new ListviewItem("Ethernet link speed", GetHswInfo.getEthernetLinkSpeed()));
-        items.add(new ListviewItem("Hdcp mode", GetHswInfo.getHdcpMode()));
-        items.add(new ListviewItem("Hdcp version", GetHswInfo.getHdcpVer()));
         items.add(new ListviewItem("RX", netInfo.RX));
         items.add(new ListviewItem("Display mode", GetHswInfo.getDisplayMode()));
         items.add(new ListviewItem("Hdmi authenticated", GetHswInfo.getHdmiAuthenticated()));
@@ -191,7 +190,11 @@ public class SysInfoActivity extends AppCompatActivity {
 //
 //        showInfo(items);
 
-        showInfo(new GetVersionInfo());
+//        showInfo(new GetVersionInfo());
+
+//        ArrayList<ListviewItem> items = new ArrayList<>();
+
+        showInfo(new GetSysInfo());
     }
 
     void cpuInfo() {
@@ -216,6 +219,14 @@ public class SysInfoActivity extends AppCompatActivity {
 
     void wifiInfo() {
         showInfo(new GetWifiInfo());
+    }
+
+    void displayInfo() {
+        showInfo(new GetDisplayInfo());
+    }
+
+    void softInfo() {
+        showInfo(new GetSoftInfo());
     }
 
     private class SysInfoItemsAdapter extends BaseAdapter {

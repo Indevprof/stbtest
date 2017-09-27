@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
     <color name="colorPrimary">#039</color>
     <color name="colorPrimaryDark">#039</color>
     <color name="colorAccent">#fc6</color>
     <color name="colorPrimaryLight">#69f</color>
+    -->
 
-    <color name="colorTextColor">#333</color>
-    <color name="colorTextColorHeader">#999</color>
+    <color name="colorPrimary">#369</color>
+    <color name="colorPrimaryDark">#069</color>
+    <color name="colorAccent">#fc0</color>
+    <color name="colorPrimaryLight">#9cf</color>
+
+    <color name="colorTextColor">#666</color>
+    <color name="colorTextColorHeader">#aaa</color>
 
     <!--
     <color name="colorPrimary">@android:color/holo_blue_dark</color>

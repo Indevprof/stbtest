@@ -32,7 +32,7 @@ public class LedActivity extends AppCompatActivity {
         items.add(new ListviewItem("Выключен", "off"));
 
         final ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new MenuItemsAdapter(this, items));
+        listView.setAdapter(new MenuItemsAdapter(this, items, false));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -70,6 +70,7 @@ public abstract class GetSysFileInfo {
         resultItems.putAll(getNamedItems(names));
         resultItems.put(title2, "header");
         resultItems.putAll(getAllItems());
+
         for (Map.Entry<String, String> e : names.entrySet()) {
             resultItems.remove(e.getKey());
         }
