@@ -61,6 +61,12 @@ public class GetWifiInfo extends GetSysFileInfo {
                 }
             }
 
+            String hwaddr = GetInfoHelper.extractValue(s, "HWaddr ([0-9a-zA-Z:]*)");
+            if (!hwaddr.isEmpty()) {
+                resultItems.put("MAC address", hwaddr.trim().toUpperCase());
+                itemsToRemove.add(e.getKey());
+            }
+
             if (s.toLowerCase().contains("cast")) {
                 s = s.trim();
                 resultItems.put("Mode", s.trim());
